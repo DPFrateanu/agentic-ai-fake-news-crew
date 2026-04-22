@@ -1,0 +1,35 @@
+research_task:
+  description: >
+    Caută informații detaliate pe internet pentru a verifica următoarea afirmație:
+    "{subiect}".
+    Trebuie să identifici surse de încredere, studii relevante, declarații oficiale 
+    sau articole de știri care confirmă sau infirmă această afirmație.
+  expected_output: >
+    Un raport detaliat de cercetare (Research Report) care conține o listă clară cu 
+    dovezile găsite (pro și contra afirmației) și link-uri către sursele cele mai importante.
+  agent: jurnalist
+
+fact_check_task:
+  description: >
+    Analizează raportul de cercetare primit de la jurnalist referitor la afirmația:
+    "{subiect}".
+    Nu ține cont de opinii, ci bazează-te strict pe logică și pe calitatea surselor găsite.
+    Trebuie să decizi clar dacă afirmația inițială este adevărată, falsă sau înșelătoare.
+  expected_output: >
+    Un verdict logic clar (Adevărat / Fals / Parțial Fals) însoțit de un scor 
+    de încredere (de la 1 la 100) și argumentul principal (motivul) care susține decizia ta.
+  agent: fact_checker
+
+reporting_task:
+  description: >
+    Preia verdictul logic de la fact-checker și redactează raportul final.
+    Raportul trebuie să fie curat, profesionist și să includă: 
+    1. Afirmația originală, 
+    2. Verdictul, 
+    3. Scorul de încredere, 
+    4. Explicația detaliată a motivului pentru care este fake news (sau nu), 
+    5. O scurtă listă a surselor.
+  expected_output: >
+    Un raport final formatat impecabil în format Markdown, pregătit pentru 
+    a fi citit de utilizatorul final pe ecran.
+  agent: redactor
