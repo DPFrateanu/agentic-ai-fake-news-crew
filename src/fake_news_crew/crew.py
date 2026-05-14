@@ -1,16 +1,5 @@
-import os
 from crewai import Agent, Crew, Process, Task, LLM
 from crewai.project import CrewBase, agent, crew, task
-from crewai.tools import tool
-from langchain_community.tools import DuckDuckGoSearchRun
-
-ddg_search = DuckDuckGoSearchRun()
-
-@tool("Cautare pe Internet")
-def internet_search_tool(query: str) -> str:
-    """Folosește această unealtă pentru a căuta informații pe internet despre un subiect."""
-    return ddg_search.invoke(query)
-
 
 @CrewBase
 class FakeNewsCrew():
@@ -20,18 +9,17 @@ class FakeNewsCrew():
 
     def __init__(self):
         self.llm = LLM(
-            model="groq/llama-3.3-70b-versatile",
-            api_key=os.environ.get("GROQ_API_KEY"),
+            model="ollama/llama3.2",
+            base_url="http://localhost:11434",
             temperature=0.1
         )
 
-    # --- AGENȚI ---
     @agent
     def jurnalist(self) -> Agent:
         return Agent(
             config=self.agents_config['jurnalist'], 
-            tools=[internet_search_tool], 
             llm=self.llm,
+            allow_delegation=False,
             verbose=True
         )
     
@@ -40,6 +28,7 @@ class FakeNewsCrew():
         return Agent(
             config=self.agents_config['fact_checker'], 
             llm=self.llm,
+            allow_delegation=False,
             verbose=True
         )
     
@@ -48,6 +37,7 @@ class FakeNewsCrew():
         return Agent(
             config=self.agents_config['redactor'],
             llm=self.llm,
+            allow_delegation=False,
             verbose=True
         )
     
@@ -78,4 +68,3 @@ class FakeNewsCrew():
             process=Process.sequential,
             verbose=True
         )
-    

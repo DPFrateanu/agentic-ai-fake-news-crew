@@ -6,14 +6,10 @@ authors = [{ name = "Your Name", email = "you@example.com" }]
 requires-python = ">=3.10,<3.14"
 dependencies = [
     "crewai[tools]==1.14.2",
-    "langchain-google-genai",
     "langchain-community",
-    "ddgs",
     "python-dotenv",
-    "google-generativeai",
-    "groq",
-    "litellm"
-
+    "litellm",
+    "langchain-ollama>=1.1.0",
 ]
 
 [project.scripts]
